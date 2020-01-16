@@ -18,6 +18,7 @@
   "author": "yanyi9399@outlook.com",
   "license": "ISC",
   "dependencies": {
+    "dayjs": "^1.8.19",
     "lodash": "^4.17.15"
   }
 }
