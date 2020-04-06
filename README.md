@@ -1,46 +1,45 @@
-# recentlyjs
+## recentlyjs
 
-> 依赖dayjs的一个列举最近天、月的js插件
+>  A JS plug-in that relies on dayjs to list which days and months are closest to the current date
 
+### download
 
-## Build Setup
+`npm i recentlyjs -S  `
 
-```bash
-# 克隆项目
-git clone https://github.com/yanyi24/recently.git
+### require
 
-# 进入项目目录
-cd recently
+`import { lastDates, lastMonth } from 'recentlyjs';`
 
-# 安装依赖
-npm install
+### usage
 
+```javascript
+const daysArr = lastDates(30[, options]) // latest 30 days
+const monthArr = lastMonth(6[, options]) // latest 6 months
+```
 
-## 使用
-import { lastDates, lastMonth } from 'path/recentlyjs';
-lastDates(30, options) // 最近30天
-lastMonth(6, options) // 最近6个月天
+### options
 
-options:{
-	type: Object,
-	required: fales
+```javascript
+options = {
+	// divider between date
+	divider: {
+		type: String,
+		required: fales,
+		default: '-'
+	},
+	// end date
+	datePoint: { 
+		type: String | Date | timeStamp,
+		required: fales,
+		default: _.now() // 当前时间
+	}
 }
+```
 
-options.divider: { // 分隔符, 日期数字之间的连接符
-	type: String,
-	required: fales,
-	default: '-'
-}
+### DEMO
 
-options.datePoint: { // 结束时间点
-	type: String | Date | timeStamp,
-	required: fales,
-	default: _.now()
-}
+![demo.gif](http://q79w24bh7.bkt.clouddn.com/recentlyjs-demo.gif)
 
+### github
 
-## License
-
-[MIT](https://gitee.com/yanyi24_yanyi9399/admin-100csc/blob/master/LICENSE) license.
-
-Copyright (c) 2020-present yanyi24_yanyi9399
+<https://github.com/yanyi24/recently.git>

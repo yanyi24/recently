@@ -1,7 +1,7 @@
 {
   "name": "recentlyjs",
-  "version": "0.0.1",
-  "description": "依赖dayjs的一个列举最近天、月的js插件",
+  "version": "0.0.2",
+  "description": "依赖dayjs的一个列举距当前日期最近具体是哪些天、哪些月的js插件",
   "main": "recentlyjs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,8 @@
     "lastDate",
     "lastMonth",
     "js",
-    "plugin"
+    "plugin",
+    "echarts"
   ],
   "git": "https://github.com/yanyi24/recently.git",
   "author": "yanyi9399@outlook.com",

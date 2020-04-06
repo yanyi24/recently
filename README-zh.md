@@ -1,46 +1,45 @@
-# recentlyjs
+## recentlyjs
 
-> 依赖dayjs的一个列举最近天、月的js插件
+>  依赖dayjs的一个列举距当前日期最近具体是哪些天、哪些月的js插件（持续更新中...）
 
+### 下载
 
-## Build Setup
+`npm i recentlyjs -S  `
 
-```bash
-# 克隆项目
-git clone https://github.com/yanyi24/recently.git
+### 引入
 
-# 进入项目目录
-cd recently
+`import { lastDates, lastMonth } from 'recentlyjs';`
 
-# 安装依赖
-npm install
+### 使用
 
+```javascript
+const daysArr = lastDates(30[, options]) // 最近30天
+const monthArr = lastMonth(6[, options]) // 最近6个月
+```
 
-## 使用
-import { lastDates, lastMonth } from 'path/recentlyjs';
-lastDates(30, options) // 最近30天
-lastMonth(6, options) // 最近6个月天
+### 参数options
 
-options:{
-	type: Object,
-	required: fales
+```javascript
+options = {
+	// 分隔符, 日期数字之间的连接符
+	divider: {
+		type: String,
+		required: fales,
+		default: '-'
+	},
+	// 结束时间点
+	datePoint: { 
+		type: String | Date | timeStamp,
+		required: fales,
+		default: _.now() // 当前时间
+	}
 }
+```
 
-options.divider: { // 分隔符, 日期数字之间的连接符
-	type: String,
-	required: fales,
-	default: '-'
-}
+### DEMO展示
 
-options.datePoint: { // 结束时间点
-	type: String | Date | timeStamp,
-	required: fales,
-	default: _.now()
-}
+![demo.gif](http://q79w24bh7.bkt.clouddn.com/recentlyjs-demo.gif)
 
+### github
 
-## License
-
-[MIT](https://gitee.com/yanyi24_yanyi9399/admin-100csc/blob/master/LICENSE) license.
-
-Copyright (c) 2020-present yanyi24_yanyi9399
+<https://github.com/yanyi24/recently.git>
