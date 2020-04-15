@@ -1,9 +1,16 @@
 /* eslint-disable no-undef */
 const dayjs = require('dayjs');
-const _ = require('lodash');
 
 function fixedNum(num) {
 	return num < 10 ? '0' + num : num;
+}
+// 自定义lodash的range方法
+function range(start, end) {  
+	let arr = [];
+	for (let i = start; i <= end; i++){
+		arr.push(i);
+	}
+	return arr;
 }
 /**
  * @param {Number} num
@@ -17,7 +24,7 @@ function fixedNum(num) {
 export function lastDates(num,
 	options = {
 		divider: '-',
-		datePoint: _.now()
+		datePoint: new Date()
 	}) {
 	const endDayjs = dayjs(options.datePoint);
 	const endYear = endDayjs.year();
@@ -26,6 +33,7 @@ export function lastDates(num,
 
 	const dates = [];
 	const startDayjs = dayjs().subtract(num - 1, 'day');
+	const startYear = startDayjs.year();
 	const startMonth = startDayjs.month() + 1;
 	const startDate = startDayjs.date();
 	const diffMonth = endDayjs.diff(startDayjs, 'month');
@@ -42,13 +50,13 @@ export function lastDates(num,
 		switch (flag) {
 			case 'start':
 				rangeStart = 1;
-				rangeEnd = dayjs.date() + 1;
+				rangeEnd = dayjs.date();
 				break;
 			default:
 				rangeStart = dayjs.date();
-				rangeEnd = dayjs.endOf('month').date() + 1;
+				rangeEnd = dayjs.endOf('month').date();
 		}
-		_.each(_.range(rangeStart, rangeEnd), (item) => {
+		range(rangeStart, rangeEnd).map(item => {
 			dates.push(`${dayjs.year()}${options.divider}${fixedNum(dayjs.month() + 1)}${options.divider}${fixedNum(item)}`);
 		});
 	}
@@ -61,30 +69,29 @@ export function lastDates(num,
 	function manyMonth(startDayjs, monthCount) {
 		for (let i = 1; i <= monthCount; i++) {
 			const addedDayjs = startDayjs.add(i, 'month');
-			_.each(_.range(1, addedDayjs.endOf('month').date() + 1), (item) => {
+			range(1, addedDayjs.endOf('month').date()).map(item => {
 				dates.push(`${addedDayjs.year()}${options.divider}${fixedNum(addedDayjs.month() + 1)}${options.divider}${fixedNum(item)}`);
 			});
 		}
 	}
 
-	if (endMonth === startMonth) { // 同一个月，直接改变天数
-		_.each(_.range(startDate, endDate + 1), (item) => {
-			dates.push(`${endYear}${options.divider}${fixedNum(endMonth)}${options.divider}${fixedNum(item)}`);
-		});
+	if (startYear === endYear && endMonth === startMonth) { // 同一年同一个月，直接改变天数
+	    range(startDate, endDate).map(item => {
+	      dates.push(`${endYear}${options.divider}${fixedNum(endMonth)}${options.divider}${fixedNum(item)}`);
+	    });
 	} else {
 		lessThanAMonth(startDayjs);
 		const diffCount = (diffMonth >= 1 && startDate <= endDate) ? diffMonth - 1 : diffMonth;
 		diffCount > 0 && manyMonth(startDayjs, diffCount);
 		lessThanAMonth(endDayjs, 'start');
 	}
-
 	return dates;
 }
 
 export function lastMonth(num,
 	options = {
 		divider: '-',
-		datePoint: _.now()
+		datePoint: new Date()
 	}) {
 	const endDayjs = dayjs(options.datePoint);
 	const endYear = endDayjs.year();
@@ -108,13 +115,13 @@ export function lastMonth(num,
 		switch (flag) {
 			case 'start':
 				rangeStart = 1;
-				rangeEnd = dayjs.month() + 1 + 1;
+				rangeEnd = dayjs.month() + 1;
 				break;
 			default:
-				rangeStart = dayjs.month() + 1;
+				rangeStart = dayjs.month();
 				rangeEnd = 12 + 1;
 		}
-		_.each(_.range(rangeStart, rangeEnd), (item) => {
+		range(rangeStart, rangeEnd).map(item => {
 			dates.push(`${dayjs.year()}${options.divider}${fixedNum(item)}`);
 		});
 	}
@@ -127,14 +134,14 @@ export function lastMonth(num,
 	function manyYear(startDayjs, yearCount) {
 		for (let i = 1; i <= yearCount; i++) {
 			const addedDayjs = startDayjs.add(i, 'year');
-			_.each(_.range(1, 12 + 1), (item) => {
+			range(1, 12).map(item => {
 				dates.push(`${addedDayjs.year()}${options.divider}${fixedNum(item)}`);
 			});
 		}
 	}
 
 	if (endYear === startYear) { // 同一年，直接改变月份
-		_.each(_.range(startMonth, endMonth + 1), (item) => {
+		range(startMonth, endMonth).map(item => {
 			dates.push(`${endYear}${options.divider}${fixedNum(item)}`);
 		});
 	} else {

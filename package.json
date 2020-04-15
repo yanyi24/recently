@@ -1,6 +1,6 @@
 {
   "name": "recentlyjs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "依赖dayjs的一个列举距当前日期最近具体是哪些天、哪些月的js插件",
   "main": "recentlyjs.js",
   "scripts": {

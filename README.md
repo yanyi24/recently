@@ -31,7 +31,7 @@ options = {
 	datePoint: { 
 		type: String | Date | timeStamp,
 		required: fales,
-		default: _.now() // 当前时间
+		default: new Date() // 当前时间
 	}
 }
 ```
@@ -39,6 +39,10 @@ options = {
 ### DEMO展示
 
 ![demo.gif](http://q79w24bh7.bkt.clouddn.com/recentlyjs-demo.gif)
+
+### CHANGELOG
+
+v0.0.4: 去掉lodash，修改lastDates当开始时间跟结束时间是同一个月份时的BUG，现在最近天数可以是任意
 
 ### github
 
